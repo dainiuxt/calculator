@@ -49,6 +49,7 @@ body          {
   font-size: 40px;
   border-radius: 0;
   align-content: center;
+  /* height: 4rem; */
 }
 
 .calculator-buttons {
@@ -64,9 +65,12 @@ body          {
 }
 
 /* span across 3 columns */
-.is-zero,
 .is-clear   {
   grid-column: span 3;
+}
+
+.is-zero  {
+  grid-column: span 2;
 }
 
 /* go blue */
