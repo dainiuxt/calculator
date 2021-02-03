@@ -64,12 +64,9 @@ body          {
   background-color: #b1b1b1  
 }
 
-/* span across 3 columns */
-.is-clear   {
-  grid-column: span 3;
-}
-
-.is-zero  {
+/* span across 2 columns */
+.is-zero,
+.is-clear  {
   grid-column: span 2;
 }
 
