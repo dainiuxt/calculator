@@ -64,14 +64,12 @@ body          {
   background-color: #b1b1b1  
 }
 
-/* span across 2 columns */
-.is-zero,
 .is-clear  {
   grid-column: span 2;
+  background: rgb(218, 137, 137);
 }
 
-/* go blue */
-.is-clear   {
+.is-correct   {
   background: #3572DB;
 }
 
