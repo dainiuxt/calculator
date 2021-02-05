@@ -1,85 +1,135 @@
 let a = 0;
+let b;
+let temp;
 let input = [];
 let toDisplay = 0;
-let operator = [];
+let operator = [''];
 const display = document.querySelector('.input');
 display.textContent = toDisplay;
+window.addEventListener('keydown', (e) => {
+  const key = document.querySelector(`.calc-button[data-key="${e.keyCode}"]`);
+});
 
-function calculate() {
-  return String
-}
+// const fibonacci = function(count) {
+//   if (count < 0) return "OOPS";
+//   if (count == 0) return 0;
+//   let a = 0;
+//   let b = 1;
+//   for (let i = 1; i < count; i++) {
+//     const temp = b;
+//     b = a + b;
+//     a = temp;
+//   }
+//   return b;
+// };
 
 function getOperand(e) {
-  const key = document.querySelector(`.calc-button[data-key="${e.keyCode}"]`);
   if (e.keyCode === 67 || e.keyCode === 27) {
-    input = [];
+    input.length = 0;
     toDisplay = 0;
     display.textContent = toDisplay;
+    b = toDisplay;
+    operator = [''];
   } else if (e.keyCode === 8) {
     input.pop();
     toDisplay = parseFloat(input.join(''));
     toDisplay = (Math.abs(toDisplay) < 1000000000) ? toDisplay : toDisplay.toExponential(5);
-    display.textContent = toDisplay;    
+    display.textContent = toDisplay;
+    b = toDisplay;    
   } else if (e.keyCode > 95 && e.keyCode < 106) {
     let charCode = e.keyCode - 48 * Math.floor(e.keyCode / 48);
     let chr = String((e.keyCode >= 96) ? charCode: e.keyCode);
-    if (Math.abs(toDisplay) < 1 && input.length > 14) {
-      input = [];
+    if ((Math.abs(toDisplay) < 1 && input.length > 14) /*|| input.join('').length > 15*/ ) {
+      input.length = 0;
       display.textContent = 'Error';
+      input.length = 0;
+      b = 0;
     } else {
       input.push(chr);
       toDisplay = parseFloat(input.join(''));
       toDisplay = (Math.abs(toDisplay) < 1000000000) ? toDisplay : toDisplay.toExponential(5);
       display.textContent = toDisplay;
+      b = toDisplay; 
     }
   } else if (e.keyCode === 110 && input.length < 15 ) {
     input.push('.');
     toDisplay = parseFloat(input.join(''));
-    display.textContent = toDisplay;
     toDisplay = (Math.abs(toDisplay) < 1000000000) ? toDisplay : toDisplay.toExponential(5);
+    display.textContent = toDisplay+'.';
+    b = toDisplay; 
   } else if (e.keyCode === 69 && input.length < 15) {
     input.push('e');
     toDisplay = parseFloat(input.join(''));
     toDisplay = (Math.abs(toDisplay) < 1000000000) ? toDisplay : toDisplay.toExponential(5);
-    display.textContent = toDisplay;
+    display.textContent = toDisplay+'e';
+    b = toDisplay; 
   } else if (e.keyCode === 106 ||
             e.keyCode === 107 ||
             e.keyCode === 109 ||
             e.keyCode === 111 ||
             e.keyCode === 13) {
-              a = parseFloat(input.join(''));
+              temp = b;
+              if (e.keyCode === 106) {
+                operator[0] = '*';
+                b = a * b;
+                a = temp;
+                b = toDisplay; 
+                input.length = 0;
+              } else if (e.keyCode === 107) {
+                operator[0] = '+';
+                return a + b;
+              } else if (e.keyCode === 109) {
+                operator[0] = '-';
+                return a - b;
+              } else if (e.keyCode === 111) {
+                operator[0] = '/'; {
+                  if (b === 0) {
+                    return 'Error';
+                  } else {
+                    return a / b;
+                  }
+                }
+              } else if (e.keyCode === 13) {
+                operator[0];
+              }
   } else {
     return;
   }
 }
 
-function getOperator(e) {
-  const key = document.querySelector(`.calc-button[data-key="${e.keyCode}"]`);  
-  if (e.keyCode === 106) {
-    operator[0] = '*';
-  } else if (e.keyCode === 107) {
-    operator[0] = '+';
-  } else if (e.keyCode === 109) {
-    operator[0] = '-';
-  } else if (e.keyCode === 111) {
-    operator[0] = '/';
-  } else if (e.keyCode === 13) {
-    operator[0] = '=';
-  }
-}
-
-// document.onkeydown = function(e) {
-//     // let keyCode = e.keyCode;
-//     let chrCode = keyCode - 48 * Math.floor(keyCode / 48);
-//     let chr = String.fromCharCode((96 <= keyCode) ? chrCode: keyCode);
-//     console.log(chr);
-// };
+// function calculate(e) {
+//   temp = b;
+//   if (e.keyCode === 106) {
+//     operator[0] = '*';
+//     b = a * b;
+//     a = temp;
+//     b = toDisplay; 
+//     input.length = 0;
+//   } else if (e.keyCode === 107) {
+//     operator[0] = '+';
+//     return a + b;
+//   } else if (e.keyCode === 109) {
+//     operator[0] = '-';
+//     return a - b;
+//   } else if (e.keyCode === 111) {
+//     operator[0] = '/'; {
+//       if (b === 0) {
+//         return 'Error';
+//       } else {
+//         return a / b;
+//       }
+//     }
+//   } else if (e.keyCode === 13) {
+//     operator[0];
+//   }
+// }
 
 document.addEventListener('keydown', getOperand);
-document.addEventListener('keydown', getOperator);
+// // document.addEventListener('keydown', getOperator);
+// document.addEventListener('keydown', calculate);
 document.addEventListener('click', function(e) {
   if (e.target.classList[1] === 'is-clear') {
-    input = [];
+    input.length = 0;
     toDisplay = 0;
     display.textContent = toDisplay;    
   } else if (e.target.classList[1] === 'is-correct') {
