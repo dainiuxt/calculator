@@ -4,24 +4,11 @@ let temp;
 let input = [];
 let toDisplay = 0;
 let operator = [''];
-const display = document.querySelector('.input');
+const display = document.querySelector('.display');
 display.textContent = toDisplay;
 window.addEventListener('keydown', (e) => {
   const key = document.querySelector(`.calc-button[data-key="${e.keyCode}"]`);
 });
-
-// const fibonacci = function(count) {
-//   if (count < 0) return "OOPS";
-//   if (count == 0) return 0;
-//   let a = 0;
-//   let b = 1;
-//   for (let i = 1; i < count; i++) {
-//     const temp = b;
-//     b = a + b;
-//     a = temp;
-//   }
-//   return b;
-// };
 
 function getOperand(e) {
   if (e.keyCode === 67 || e.keyCode === 27) {
